@@ -34,6 +34,8 @@ OLDIFS="$IFS"
       versions=("${versions[@]}" "${version}")
     elif version_exists "${version#python-}"; then
       versions=("${versions[@]}" "${version#python-}")
+    elif [[ -n "${PYENV_AUTOINSTALL}" ]]; then
+      $PYENV_ROOT/bin/pyenv install $version 1>&2
     else
       echo "pyenv: version \`$version' is not installed (set by $(pyenv-version-origin))" >&2
       any_not_installed=1
